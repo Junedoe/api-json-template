@@ -31,16 +31,16 @@ class oneForm extends Component {
         try {
             // update item
             // bevore update remove isOpen, because we add it
-            const newitem = this.state.item;
-            delete newitem['isOpen'];
-            await saveItem(newitem);
+            const newOrUpdatedItem = this.state.item;
+            delete newOrUpdatedItem['isOpen'];
+            const requestedItem = await saveItem(newOrUpdatedItem);
             // call parent function
 
-            this.props.myParentClose(this.state.item);
-        } catch (ex) {
-            if (ex.response && ex.response.status === 400) {
+            this.props.myParentFunction(requestedItem.data);
+        } catch (exception) {
+            if (exception.response && exception.response.status === 400) {
                 const errors = { ...this.state.errors };
-                toast.error = 'something wrong !!';
+                toast.error = 'something went wrong !!';
                 this.setState({ errors });
             }
         }
@@ -79,9 +79,11 @@ class oneForm extends Component {
         );
     }
 }
+
 // it is important to define with prop-types need this Component
 oneForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
+    onUpdateItem: PropTypes.func.isRequired,
     show: PropTypes.bool
 };
+
 export default oneForm;

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import NavBar from './Navbar';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Home from './components/home';
-import one from '../src/components/one';
-import NotFound from './components/notFound';
+import Home from '../src/components/home';
+import One from '../src/components/one';
+import Two from '../src/components/two';
+import NotFound from '../src/components/notFound';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import './styles/style.css';
@@ -18,7 +19,8 @@ class App extends Component {
                 <main className="container">
                     <Switch>
                         <Route path="/home" render={props => <Home />} />
-                        <Route path="/one" component={one} />
+                        <Route path="/one" component={One} />
+                        <Route path="/two" component={Two} />
                         <Route path="/not-found" component={NotFound} />
                         <Redirect from="/" exact to="/home" />
                         <Redirect to="/not-found" />

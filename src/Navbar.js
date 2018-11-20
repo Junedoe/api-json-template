@@ -12,7 +12,7 @@ class Navbar extends Component {
                     <div className="nav-links-row">
                         <ul className="navbar navbar-navb">
                             <li className="navbar-navb-li">
-                                <Link to="/exampleOne">FirstAPI</Link>
+                                <Link to="/one">FirstAPI</Link>
                             </li>
                             <li className="navbar-navb-li">
                                 <Link to="/two">SecondAPI</Link>

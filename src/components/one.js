@@ -11,7 +11,7 @@ class One extends Component {
             isLoading: false,
             error: null
         };
-        this.onClose = this.onClose.bind(this);
+        this.onUpdateItem = this.onUpdateItem.bind(this);
     }
 
     async componentDidMount() {
@@ -34,17 +34,17 @@ class One extends Component {
     async handleDelete(anObjectMappedKey) {
         // save orginalItems
         const originalItems = this.state.items;
-        // set items without deleted Item
-        const items = originalItems.filter(m => m.id !== anObjectMappedKey);
-        this.setState({ items });
         // now try to delete
         try {
             await deleteItem(anObjectMappedKey);
-        } catch (ex) {
-            if (ex.response && ex.response.status === 404) console.log(ex);
+            // set items without deleted Item
+            const items = originalItems.filter(element => element.id !== anObjectMappedKey);
+            this.setState({ items });
+        } catch (exception) {
+            if (exception.response && exception.response.status === 404) console.log(exception);
             toast.error('This item has already been deleted.');
             // back saved Items to items
-            this.setState({ movies: originalItems });
+            this.setState({ items: originalItems });
         }
     }
 
@@ -58,7 +58,7 @@ class One extends Component {
         this.setState({ items: saveItems });
     }
     // this function called from child
-    onClose(fromChild) {
+    onUpdateItem(fromChild) {
         console.log(fromChild);
         // update fields, that was in changed in child form
         console.log(this.state.items);
@@ -72,7 +72,8 @@ class One extends Component {
                   }
                 : item
         );
-        console.log(saveItems);
+
+        console.log('saveItems are these: ', saveItems);
         this.setState({ items: saveItems });
     }
 
@@ -103,7 +104,7 @@ class One extends Component {
                             <OneForm
                                 show={anObjectMapped.isOpen}
                                 item={anObjectMapped}
-                                myParentClose={this.onClose}
+                                myParentFunction={this.onUpdateItem}
                             />
                         </li>
                     ))}
