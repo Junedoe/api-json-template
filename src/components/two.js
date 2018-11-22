@@ -11,7 +11,6 @@ class Two extends Component {
     componentDidMount() {
         try {
             const items = getTwoJson();
-            console.log(items);
             this.setState({ items });
         } catch (error) {
             this.setState({
@@ -28,10 +27,21 @@ class Two extends Component {
                 <div>
                     {this.state.items.map((anObjectMapped, index) => (
                         <p key={anObjectMapped.id}>
-                            <span>"Name: " {anObjectMapped.name} </span>
+                            <span>Name: {anObjectMapped.name} </span>
                             <br />
+                            <span>Email: {anObjectMapped.email} </span>
                             <br />
-                            <span>"Email: " {anObjectMapped.email} </span>
+                            <div>
+                                Friends:
+                                {anObjectMapped.friends.map((friend, index) => {
+                                    return (
+                                        <ul>
+                                            <li key={friend.id}>{friend.name}</li>
+                                        </ul>
+                                    );
+                                })}
+                            </div>
+                            <br />
                         </p>
                     ))}
                 </div>
